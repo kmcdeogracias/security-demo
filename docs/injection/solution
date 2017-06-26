@@ -1,0 +1,2 @@
+- For SQL calls, this means using bind variables in all prepared statements and stored procedures, and avoiding dynamic queries. 
+- Sanitize input

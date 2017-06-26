@@ -1,0 +1,34 @@
+- Types of injection: SQL, Code, OS, LDAP, XML, XPATH, XXI, IMAP/SMTP, Bufer Overflow
+- SQL Injection - most common breach paradigm
+- Inject malicious sql statements (malicious payload)
+- Victim: any site that uses sql-based database
+- One of the oldest, most common and dangerous vulnerabilities
+- Bypass a web application’s authentication and authorization mechanisms and retrieve the contents of an entire database.
+- Add modify and delete records
+- customer data, personally identifiable information (PII), trade secrets, intellectual property and other sensitive information.
+- Always assume that data is evil
+- Sanitize input
+- Encode
+- Clean up
+- Use minimal db privilege
+- Parameterized queries
+- Prepared statements
+- Stored procedures
+- Ways to prevent SQL injection
+- Use a vetted library or framework
+- Use a parameterized API
+- Run the application with minimum privileges
+- Escape all characters
+- Input validation/sanitation
+- Whitelist allowed characters
+- Assume all inputs are malicious
+- Do not rely solely on blacklisted inputs
+
+- Threat agents: Anyone who can send untrusted data (external users, internal users, admin)
+- Attack vector: Simple text-based attacks that exploit the syntax of the targeted interpreter
+- Security weakness: Common attack (especially in legacy code), Easy to discover when examinig the code but hard to discover when testing
+    - Scanner - A vulnerability scanner is a computer program designed to assess computers, computer systems, networks or applications for weaknesses.
+    In plain words, these scanners are used to discover the weak points or poorly constructed parts.
+    - Fuzzer - A Security fuzzer is a tool used by security professionals (and professional hackers :) to test a parameter of an application
+- Technical impact: Data loss, corruption, lack of accountability, denial of access, complete host takeover
+- Business impact: All data could be stolen, modified, or deleted. Company or business reputation can be ruined.

