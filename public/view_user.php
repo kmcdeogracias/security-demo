@@ -8,7 +8,7 @@
         $id = $_GET["id"];
         
         // echo $query = "SELECT id, username, first_name, last_name FROM users where username = '" . $username . "'"; echo "<br />";
-        // echo $query = "SELECT * FROM users WHERE id = $id";
+        echo $query = "SELECT username, first_name, last_name FROM users WHERE id = $id"; echo "<br>";
 
         // prepare and bind
         // $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)");
@@ -18,35 +18,34 @@
         // $stmt->execute();
 
 
-        // $result = mysqli_query($conn, $query);
+        $result = mysqli_multi_query($conn, $query) or die(mysqli_error($conn));
+        $num_res = mysqli_num_rows($result);
+        echo 'Total number of results: ' . $num_res . '<br/>';
 
-        // if (mysqli_num_rows($result) > 0) {
-        //     # Output data of each row
-        //     while($row = mysqli_fetch_assoc($result)) {
-        //         echo "id: " . $row["id"] . ", username: " . $row["username"]. ", name: " . $row["first_name"]. " " . $row["last_name"]. "<br>";
-        //     }
-        // } else {
-        //     echo "0 results";
-        // }
+        if ($num_res > 0) {
+            while($row = mysqli_fetch_assoc($result)) {
+                print_r($row);
+            }
+        }
 
         /* create a prepared statement */
-        if ($stmt = $conn->prepare("SELECT username, first_name FROM users WHERE id=?")) {
+        // if ($stmt = $conn->prepare("SELECT username, first_name FROM users WHERE id=?")) {
 
-                if (!$stmt->bind_param("i", $user_id)) {
-                    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-                }
-                $user_id = $id;
+        //         if (!$stmt->bind_param("i", $user_id)) {
+        //             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        //         }
+        //         $user_id = $id;
                 
-                $stmt->execute();
+        //         $stmt->execute();
 
-                $stmt->bind_result($user, $first_name);
+        //         $stmt->bind_result($user, $first_name);
 
-                $stmt->fetch();
+        //         $stmt->fetch();
 
-                printf("%i of username %s %s\n", $user_id, $user, $first_name);
+        //         printf("%i of username %s %s\n", $user_id, $user, $first_name);
             
-            $stmt->close();
-        }
+        //     $stmt->close();
+        // }
     }
 
 /*

@@ -1,0 +1,21 @@
+ATTACKERS
+	- external attackers
+	- users with own account, attemps to steal others account
+	- insiders who wants to disguise their actions
+
+ATTACK VECTORS
+	- uses leaks or flaws in auth and session mgmt
+	- uses exposed accounts, password, session ids to impersonate
+
+PREVALENCE
+	- widespread
+
+DETECTABILITY
+	- average
+
+TECHNICAL IMPACTS
+	- severe
+	- all accounts can be attacked
+
+EXAMPLE
+	- hijacking attack (most common)
