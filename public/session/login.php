@@ -1,5 +1,5 @@
 <?php
-	
+
 	require '../conf/db.php';
 
     ini_set('display_errors', 1);
@@ -21,15 +21,10 @@
         	while ($row = mysqli_fetch_array($result)) {
         		$_SESSION["username"] = $row["username"];
 
-        		header("Location:welcome.php");  
+        		header("Location:welcome.php");
         	}
         }
 	}
-?>
 
-<h1>Login Page</h1>
-<form method="POST">
-	<input type="username" name="username" placeholder="username">
-	<input type="password" name="password" placeholder="password">
-	<input type="submit">
-</form>
+    include 'login_form.php';
+?>
