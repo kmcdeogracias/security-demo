@@ -1,11 +1,11 @@
 <?php
 
+    session_start();
+
 	require '../conf/db.php';
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
-
-	session_start();
 
 	if (isset($_POST["username"]) && isset($_POST["password"])) {
 		$username = $_POST["username"];
@@ -20,11 +20,12 @@
         if ($result->num_rows) {
         	while ($row = mysqli_fetch_array($result)) {
         		$_SESSION["username"] = $row["username"];
-
-        		header("Location:welcome.php");
+                header("location:welcome.php");
         	}
+        } else {
+            echo "Invalid credentials";
         }
-	}
-
-    include 'login_form.php';
+	} else {
+        include 'login_form.php';
+    }
 ?>
