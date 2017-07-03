@@ -1,7 +1,5 @@
 <?php
-
-    session_start();
-
+    require 'session_ini.php';
 	require '../conf/db.php';
 
     ini_set('display_errors', 1);
@@ -19,6 +17,7 @@
         $result = mysqli_query($conn, $query);
         if ($result->num_rows) {
         	while ($row = mysqli_fetch_array($result)) {
+                session_regenerate_id(true);
         		$_SESSION["username"] = $row["username"];
                 header("location:welcome.php");
         	}

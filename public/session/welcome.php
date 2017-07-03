@@ -1,5 +1,6 @@
 <?php
-    session_start();
+    require 'session_ini.php';
+	
     if (isset($_SESSION["username"])) {
 ?>
 

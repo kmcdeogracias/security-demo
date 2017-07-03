@@ -10,4 +10,6 @@
 	<script type="text/javascript">
 		document.cookie="PHPSESSID=n3av9fbluh2chtmbqivuuadu22";
 	</script>
+
+	<script type="text/javascript">alert(document.cookie);</script>
 -->

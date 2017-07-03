@@ -1,4 +1,5 @@
 <?php
+    require 'session_ini.php';
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
         setcookie(session_name(), '', time() - 42000,
@@ -6,7 +7,7 @@
             $params["secure"], $params["httponly"]
         );
     }
-    session_start();
+    unset($_SESSION["username"]);
     session_destroy();
 
     header("location:login.php");
