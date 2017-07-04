@@ -1,5 +1,8 @@
 <?php
-	echo $_GET["PHPSESSID"];
+	echo $user_session = $_GET["PHPSESSID"];
+	// $file = "log.txt";
+	// file_put_contents($file, $user_session);
+
 ?>
 
 <!-- 
