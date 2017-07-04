@@ -32,7 +32,6 @@
     // DESC: Inject drop statement during INSERT query
 
     // INPUT: x'); DROP TABLE users_profile; #
-    
     // QUERY: INSERT INTO `users` (username, password, first_name, last_name) VALUES ('email@example.com', 'd41d8cd98f00b204e9800998ecf8427e', 'Juan', 'x'); DROP TABLE users_profile; #')
 
 ?>

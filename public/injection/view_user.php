@@ -1,22 +1,13 @@
 <?php  
-    require 'conf/db.php';
+    require '../conf/db.php';
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
-        
-        // echo $query = "SELECT id, username, first_name, last_name FROM users where username = '" . $username . "'"; echo "<br />";
-        echo $query = "SELECT username, first_name, last_name FROM users WHERE id = $id"; echo "<br>";
 
-        // prepare and bind
-        // $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email) VALUES (?, ?, ?)");
-        // $stmt = $conn->prepare("SELECT * FROM users WHERE id = (?)");
-        // $stmt->bind_param("i", $id);
-        
-        // $stmt->execute();
-
+        echo $query = "SELECT username, first_name, last_name FROM users WHERE id = $id"; echo "<br/>";
 
         $result = mysqli_multi_query($conn, $query) or die(mysqli_error($conn));
         $num_res = mysqli_num_rows($result);
@@ -28,27 +19,42 @@
             }
         }
 
-        /* create a prepared statement */
-        // if ($stmt = $conn->prepare("SELECT username, first_name FROM users WHERE id=?")) {
 
-        //         if (!$stmt->bind_param("i", $user_id)) {
-        //             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        //         }
-        //         $user_id = $id;
+        // Prepared Statement
+        /*$query =  "SELECT username, first_name FROM users WHERE id=?";
+        if ($stmt = $conn->prepare($query)) {
                 
-        //         $stmt->execute();
+                if (!$stmt->bind_param("i", $user_id)) {
+                    echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+                }
 
-        //         $stmt->bind_result($user, $first_name);
+                $user_id = $id;
+                
+                $stmt->execute();
+                $stmt->bind_result($user, $first_name);
+                $stmt->fetch();
 
-        //         $stmt->fetch();
-
-        //         printf("%i of username %s %s\n", $user_id, $user, $first_name);
+                printf("%i of username %s %s\n", $user_id, $user, $first_name);
             
-        //     $stmt->close();
-        // }
+            $stmt->close();
+        }*/
     }
 
-/*
-    'x' OR users.first_name='melai'
-*/    
-?>    
+    // DESC: Inject code via URL
+
+    // INPUT: '' or '1'='1'
+    // QUERY: SELECT username, first_name, last_name FROM users WHERE id = '' or '1'='1'
+
+    // INPUT: '' or ''=''
+    // QUERY: SELECT username, first_name, last_name FROM users WHERE id = '' or ''=''
+
+    // INPUT: 'x' OR first_name='melai'
+    // INPUT: 'x' OR firstname='melai'
+    // INPUT: 'x' OR users.firstname='melai'
+    // Guessing proper column names
+    // QUERY: SELECT username, first_name, last_name FROM users WHERE id = 'x' OR first_name='melai'
+
+    // 'x' OR first_name LIKE '%user%'
+
+    //  1; INSERT INTO users (`username`, `password`, `first_name`, `last_name`) VALUES ('raph', md5('password'), 'Raph', 'Medina')
+?>
