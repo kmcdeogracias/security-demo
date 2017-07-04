@@ -34,7 +34,8 @@
                 $stmt->bind_result($user, $first_name);
                 $stmt->fetch();
 
-                printf("%i of username %s %s\n", $user_id, $user, $first_name);
+                // printf("%i of username %s %s\n", $user_id, $user, $first_name);
+                print_r("id: " . $user_id . " username: " . $user . " first name: " . $first_name);
             
             $stmt->close();
         }*/
