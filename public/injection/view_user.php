@@ -9,7 +9,7 @@
 
         echo $query = "SELECT username, first_name, last_name FROM users WHERE id = $id"; echo "<br/>";
 
-        $result = mysqli_multi_query($conn, $query) or die(mysqli_error($conn));
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $num_res = mysqli_num_rows($result);
         echo 'Total number of results: ' . $num_res . '<br/>';
 
@@ -23,7 +23,7 @@
         // Prepared Statement
         /*$query =  "SELECT username, first_name FROM users WHERE id=?";
         if ($stmt = $conn->prepare($query)) {
-                
+
                 if (!$stmt->bind_param("i", $user_id)) {
                     echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
                 }

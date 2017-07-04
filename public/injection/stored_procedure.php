@@ -5,7 +5,7 @@
 			- actual query and parameter are treated as separate entities
 			- treats parameters as solely data without ambiguity
 	**/
-	require 'conf/db.php';
+	require '../conf/db.php';
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
@@ -31,21 +31,10 @@
 	}*/
 
 	/**
-		Without using stored procedure
-		Using multi query
-	**/  
-
-	/*if (isset($_GET['id'])) {
-		$id = $_GET['id'];
-
-		$query = "SELECT username, first_name, last_name FROM users WHERE id = '$id'";
-		$result = mysqli_multi_query($conn, $query) or die('Query fails: ' . mysqli_error($conn));
-		print_r(mysqli_store_result($conn));
-	}*/
-
-	/**
 		Using stored procedure
-
+	
+		DELIMITER //
+		
 		CREATE PROCEDURE get_user_by_id(IN id INT)
 		BEGIN
 			SELECT username, first_name, last_name FROM users
