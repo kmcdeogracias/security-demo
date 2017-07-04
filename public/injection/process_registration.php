@@ -1,53 +1,38 @@
 <?php
-    require 'conf/db.php';
+    // DB connection
+    require '../conf/db.php';
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
-    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['first_name']) && isset($_POST['last_name'])){
+    if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['first_name']) && isset($_POST['last_name'])) {
+        
         $username = $_POST['username'];
         $password = $_POST['password'];
         $first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
-
-        $error = false;
-        // if (!filter_var($username, FILTER_VALIDATE_EMAIL)) {
-        //     $error = true;
-        // } else if (!ctype_alnum($first_name)) {
-        //     $error = true;
-        // } else if (!ctype_alnum($last_name)) {
-        //     $error = true;
-        // }
-
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $hashed_password = md5($password);
+        $hashed_pw = md5($password);
         
+        $error = false;
+
         if (!$error) {
-            echo $query = "INSERT INTO `users` (username, password, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
+            $query = "INSERT INTO `users` (username, password, first_name, last_name) VALUES ('$username', '$hashed_pw', '$first_name', '$last_name')";
 
-            $success = false;
-            $msg = null;
-
-            try {
-                $result = mysqli_query($conn, $query);
-
-                if ($result) {
-                    // echo $success = true;
-                    // echo $msg = "User Created Successfully.";
-                    echo 'SUCCESS';
-                } else {
-                    // echo $success = false;
-                    print_r(mysqli_error($conn));
-                }
-
-            } catch (Exception $e) {
-                print_r($e);
+            $result = mysqli_multi_query($conn, $query) or die('Query fails: ' . mysqli_error($conn));
+            if ($result) {
+                echo "User successfully created :)";
             }
         } else {
-            echo 'Invalid input';
+            echo "User creation failed :(";
         }
-
     } else {
-        echo $success = false;
+        header("location:registration.php");
     }
+
+    // DESC: Inject drop statement during INSERT query
+
+    // INPUT: x'); DROP TABLE users_profile; #
+    
+    // QUERY: INSERT INTO `users` (username, password, first_name, last_name) VALUES ('email@example.com', 'd41d8cd98f00b204e9800998ecf8427e', 'Juan', 'x'); DROP TABLE users_profile; #')
+
 ?>

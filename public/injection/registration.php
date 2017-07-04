@@ -25,13 +25,6 @@
                 <p>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
                 </p>
-                <?php if ($_GET["success"] == true) { ?>
-                    <p>User created successfully</p>
-                <?php } ?>
-
-                <?php if ($_GET["success"] == false) { ?>
-                    <p>User registration failed</p>
-                <?php } ?>
           </form>
         </div>
     </body>
