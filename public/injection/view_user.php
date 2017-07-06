@@ -7,12 +7,13 @@
     if (isset($_GET["id"])) {
         $id = $_GET["id"];
 
-        echo $query = "SELECT username, first_name, last_name FROM users WHERE id = $id"; echo "<br/>";
+        $query = "SELECT username, first_name, last_name FROM users WHERE id = $id";
 
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $num_res = mysqli_num_rows($result);
         echo 'Total number of results: ' . $num_res . '<br/>';
 
+        echo "Profile page: <br>";
         if ($num_res > 0) {
             while($row = mysqli_fetch_assoc($result)) {
                 print_r($row);
